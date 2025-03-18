@@ -1,50 +1,51 @@
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Load environment variables
+dotenv.config();
+
+// Import routes
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
+
+// Import middleware
+const  mockAuth  = require('./middlewares/mockAuth');
+const { authMiddleware } = require('./middlewares/auth');
+
 
 // Set view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Static files
+// Middleware && Static files
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Authentication middleware
+if ((process.env.NODE_ENV || '').trim() === 'development') {
+    console.log("Using mock authentication middleware");
+    app.use(mockAuth);
+}
+
+// Apply auth middleware globally
+app.use(authMiddleware);
+
 // Routes
-app.get('/', (req, res) => {
-  res.render('dashboard', {
-    title: 'Dashboard',
-    activePage: 'dashboard'
-  });
-});
+app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
-app.get('/azure', (req, res) => {
-  res.render('dashboard', {
-    title: 'Azure Tools',
-    activePage: 'azure'
-  });
-});
-
-app.get('/ai-chatbots', (req, res) => {
-  res.render('dashboard', {
-    title: 'AI Chatbots',
-    activePage: 'ai-chatbots'
-  });
-});
-
-app.get('/container-checker', (req, res) => {
-  res.render('dashboard', {
-    title: 'Container Checker',
-    activePage: 'container-checker'
-  });
-});
-
-app.get('/military-addresses', (req, res) => {
-  res.render('dashboard', {
-    title: 'Military Addresses Checker',
-    activePage: 'military-addresses'
-  });
+// Error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('error', { 
+        message: 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
 });
 
 // Start the server
