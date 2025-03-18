@@ -140,6 +140,7 @@
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
+  object-fit: fill;
 }
 
 .user-avatar img {

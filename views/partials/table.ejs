@@ -1,0 +1,115 @@
+<div class="container">
+  <!-- Table Header -->
+  <div class="table-header">
+    <h2 class="table-title"><%= tableTitle || "Data Table" %></h2>
+    <div class="table-actions">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search..." />
+      </div>
+      <button class="button secondary" id="showFilters">Filters</button>
+      <button class="button secondary" id="exportCsv">Export CSV</button>
+      <button class="button" id="refreshTable">Refresh</button>
+    </div>
+  </div>
+
+  <!-- Filter Panel -->
+  <div class="filter-panel" id="filterPanel">
+    <h3 class="filter-panel-title">Filters</h3>
+    <div class="filter-options">
+      <div class="filter-option">
+        <label for="filterName">Name</label>
+        <input type="text" id="filterName" placeholder="Filter by name" />
+      </div>
+      <div class="filter-option">
+        <label for="filterStatus">Status</label>
+        <div class="select-wrapper">
+          <select id="filterStatus">
+            <option value="">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-option">
+        <label for="filterDate">Date Range</label>
+        <input type="date" id="filterDate" />
+      </div>
+    </div>
+    <div class="filter-buttons">
+      <button class="button secondary" id="clearFilters">Clear</button>
+      <button class="button" id="applyFilters">Apply Filters</button>
+    </div>
+  </div>
+
+  <!-- Table Filters -->
+  <div class="table-filters">
+    <div class="filter-item">
+      <label for="statusFilter">Status:</label>
+      <div class="select-wrapper">
+        <select id="statusFilter">
+          <option value="">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-item">
+      <div class="checkbox-container">
+        <input type="checkbox" id="showArchived" />
+        <label for="showArchived">Show archived</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Wrapper -->
+  <div class="table-wrapper">
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <% columns.forEach(column => { %>
+          <th
+            data-sort="<%= column.key %>"
+            class="<%= column.key === currentSort.column ? 'sorted ' + currentSort.direction : '' %>"
+          >
+            <%= column.label %> <% if (column.sortable) { %>
+            <span class="sort-indicator"></span>
+            <% } %>
+          </th>
+          <% }); %>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table data will be populated by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table Footer -->
+  <div class="table-footer">
+    <div class="rows-per-page">
+      <span>Rows per page:</span>
+      <div class="select-wrapper">
+        <select id="rowsPerPage">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+    </div>
+    <div class="pagination" id="pagination">
+      <!-- Pagination buttons will be populated by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // Configuration
+  const tableConfig = {
+    apiUrl: "<%= apiUrl %>",
+    columns: JSON.parse('<%- JSON.stringify(columns) %>'),
+    rowsPerPage: <%= rowsPerPage || 10 %>
+  };
+</script>
