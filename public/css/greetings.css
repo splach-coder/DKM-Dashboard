@@ -1,0 +1,26 @@
+.greetings-message {
+    line-height: 1.2;
+    text-align: left;
+    margin-top: 60px;
+}
+
+.black {
+    color: black;
+}
+
+.orange {
+    color: var(--primary-color);
+    font-style: italic;
+}
+
+.text span.gray {
+    color: #777;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.text span {
+    font-size: 36px;
+    font-family: "Nunito sans", sans-serif;
+    font-weight: 700;
+}

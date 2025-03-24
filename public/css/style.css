@@ -18,6 +18,10 @@
     --sidebar-width-expanded: 260px;
     --sidebar-width-collapsed: 70px;
     --header-height: 70px;
+    --border-radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --white: #FFFFFF;
   }
   
   * {
@@ -25,7 +29,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    font-size: 16px;
+    font-size: 14px;
   }
   
   body {
@@ -55,6 +59,8 @@
   }
   
   .main-content {
+    height: 100vh;
+    overflow: hidden;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -114,31 +120,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-  }
-  
-  .search-box {
-    display: flex;
-    align-items: center;
-    background-color: var(--background-light);
-    border-radius: 20px;
-    overflow: hidden;
-    padding: 0 5px;
-  }
-  
-  .search-box input {
-    background: transparent;
-    border: none;
-    padding: 8px 12px;
-    width: 200px;
-    outline: none;
-  }
-  
-  .search-box button {
-    background: transparent;
-    border: none;
-    color: var(--text-light);
-    cursor: pointer;
-    padding: 8px;
   }
   
   .header-actions {

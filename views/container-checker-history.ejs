@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head') %>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <%- include('partials/sidebar') %>
+        <main class="main-content">
+            <%- include('partials/header') %>
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="content-header">
+                        <h2>Wrong container</h2>
+                        <p>Check the wrong containers and fix the problem asap.</p>
+                    </div>
+                    <div class="content-placeholder">
+                        <%- include('partials/table.ejs', {
+                            tableTitle: "Declarations",
+                            apiUrl: "/api/declarations",
+                            columns: [
+                              { key: "ID", label: "ID", sortable: true },
+                              { key: "File_Creator", label: "File Creator", sortable: true },
+                              { key: "Company", label: "Company", sortable: true },
+                              { key: "Type_of_Declaration", label: "Type", sortable: true },
+                              { key: "Date_of_Acceptance", label: "Date", sortable: true }
+                            ],
+                            rowsPerPage: 10,
+                            currentSort: { column: "id", direction: "asc" }
+                          }) %>
+                    </div>
+                </div>
+            </div>  
+        </main>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+
+</html>

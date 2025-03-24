@@ -1,12 +1,13 @@
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="logo-container">
-        <img src="/images/logo.svg" alt="Logo" class="logo" onerror="this.src='/images/logo.svg'; this.onerror=null;">
+        <img src="/images/mini-logo.png" alt="Logo" class="logo" id="logo-img" onerror="this.src='/images/logo.png'; this.onerror=null;">
       </div>
     </div>
     
     <div class="sidebar-content">
       <ul class="sidebar-menu">
+        
         <li class="sidebar-item <%= activePage === 'dashboard' ? 'active' : '' %>">
           <a href="/" class="sidebar-link" data-tooltip="Dashboard">
             <i class="fas fa-chart-bar"></i>
@@ -14,6 +15,7 @@
           </a>
         </li>
         
+        <!-- 
         <li class="sidebar-item has-submenu <%= activePage === 'azure' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="Azure">
             <i class="fab fa-microsoft"></i>
@@ -26,6 +28,7 @@
             <li><a href="/azure/resources">Resources</a></li>
           </ul>
         </li>
+        -->
         
         <li class="sidebar-item has-submenu <%= activePage === 'ai-chatbots' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="AI Chatbots">
@@ -38,6 +41,7 @@
           </ul>
         </li>
         
+        <!-- 
         <li class="sidebar-item has-submenu <%= activePage === 'container-checker' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="Container Checker">
             <i class="fas fa-cubes"></i>
@@ -45,11 +49,11 @@
             <i class="fas fa-chevron-right arrow"></i>
           </a>
           <ul class="submenu">
+            <li><a href="/container-checker/history">History</a></li>
             <li><a href="/container-checker">Check Container</a></li>
-            <li><a href="/container-checker/history">Check History</a></li>
-            <li><a href="/container-checker/settings">Settings</a></li>
           </ul>
         </li>
+
         
         <li class="sidebar-item has-submenu <%= activePage === 'military-addresses' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="Military Addresses">
@@ -63,6 +67,7 @@
             <li><a href="/military-addresses/reports">Reports</a></li>
           </ul>
         </li>
+        -->
       </ul>
     </div>
     

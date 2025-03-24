@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebarItems = document.querySelectorAll('.sidebar-item.has-submenu');
+    const logoImg = document.getElementById('logo-img');
+
+
     
     // Initialize: Close all submenus if sidebar is collapsed on page load
     if (!sidebar.classList.contains('expanded')) {
@@ -19,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarItems.forEach(item => {
           item.classList.remove('active');
         });
+        logoImg.src = 'mini-logo.png';
+      }else{
+        logoImg.src = 'logo.png'; 
       }
       
       updateTooltips();

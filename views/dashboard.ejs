@@ -10,90 +10,9 @@
         <%- include('partials/sidebar') %>
 
             <main class="main-content">
-                <header class="main-header">
-                    <div class="header-left">
-                        <h1 class="page-title">
-                            <%= title %>
-                        </h1>
-                        <nav class="breadcrumb">
-                            <ol>
-                                <li><a href="/">Home</a></li>
-                                <% if (activePage !=='dashboard' ) { %>
-                                    <li>
-                                        <%= title %>
-                                    </li>
-                                    <% } %>
-                            </ol>
-                        </nav>
-                    </div>
-                    
-                    <div class="header-right">
-                        <div class="search-box">
-                            <input type="text" placeholder="Search...">
-                            <button type="button"><i class="fas fa-search"></i></button>
-                        </div>
-                        <div class="header-actions">
-                            <button class="btn-icon" data-tooltip="Notifications">
-                                <i class="fas fa-bell"></i>
-                                <span class="badge">5</span>
-                            </button>
-                            <button class="btn-icon" data-tooltip="Settings">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                        </div>
-                    </div>
-                </header>
+                <%- include('partials/header') %>
 
-                <div class="content-wrapper">
-                    <% if (activePage==='dashboard' ) { %>
-                        <div class="dashboard-overview">
-                            <div class="dashboard-cards">
-                                <div class="card">
-                                    
-                                    <% } else if (activePage==='azure' ) { %>
-                                        <div class="page-content">
-                                            <div class="content-header">
-                                                <h2>Azure Services</h2>
-                                                <p>Manage and monitor your Azure resources</p>
-                                            </div>
-                                            <div class="content-placeholder">
-                                                <p>Azure content will be added here.</p>
-                                            </div>
-                                        </div>
-                                        <% } else if (activePage==='ai-chatbots' ) { %>
-                                            <div class="page-content">
-                                                <div class="content-header">
-                                                    <h2>AI Chatbots</h2>
-                                                    <p>Create and manage your AI chatbots</p>
-                                                </div>
-                                                <div class="content-placeholder">
-                                                    <p>AI chatbots content will be added here.</p>
-                                                </div>
-                                            </div>
-                                            <% } else if (activePage==='container-checker' ) { %>
-                                                <div class="page-content">
-                                                    <div class="content-header">
-                                                        <h2>Container Checker</h2>
-                                                        <p>Check and verify container status</p>
-                                                    </div>
-                                                    <div class="content-placeholder">
-                                                        <p>Container checker content will be added here.</p>
-                                                    </div>
-                                                </div>
-                                                <% } else if (activePage==='military-addresses' ) { %>
-                                                    <div class="page-content">
-                                                        <div class="content-header">
-                                                            <h2>Military Addresses Checker</h2>
-                                                            <p>Verify and validate military addresses</p>
-                                                        </div>
-                                                        <div class="content-placeholder">
-                                                            <p>Military addresses content will be added here.</p>
-                                                        </div>
-                                                    </div>
-                                                    <% } %>
-                                </div>
-                            </div>
-                        </div>
+                <img src="/images/main.jpg" width="100%" height="100%" alt="" srcset="">
             </main>
     </div>
 

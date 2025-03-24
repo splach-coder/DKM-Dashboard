@@ -4,7 +4,7 @@ const { requireAuth } = require('../middlewares/auth');
 const assistants = require('../data/assistants');
 
 // Active assistant
-const activeAssistant = 'EU Trade & Customs';
+const activeAssistant = 'ChatGPT';
 
 router.get("/", requireAuth, (req, res) => {
   res.render("dashboard", {
@@ -29,6 +29,14 @@ router.get("/ai-chatbots", requireAuth, (req, res) => {
     user: req.user,
     assistants,
     activeAssistant 
+  });
+});
+
+router.get("/container-checker/history", requireAuth, (req, res) => {
+  res.render("container-checker-history", {
+    title: "Container Checker",
+    activePage: "container-checker",
+    user: req.user
   });
 });
 

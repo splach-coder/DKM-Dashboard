@@ -1,5 +1,3 @@
-
-
 // Global state
 let tableData = [];
 let filteredData = [];
