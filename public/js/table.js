@@ -26,6 +26,10 @@ async function initTable() {
       throw new Error("Network response was not ok");
     }
     tableData = await response.json();
+
+    // Sort data by Date_of_Acceptance from newest to oldest
+    tableData.sort((a, b) => new Date(b.Date_of_Acceptance) - new Date(a.Date_of_Acceptance));
+
     filteredData = [...tableData];
     renderTable();
     setupEventListeners();
@@ -48,6 +52,11 @@ function renderTable() {
   paginatedData.forEach(item => {
     const row = document.createElement("tr");
 
+    // Add "unhandled" class if declaration.handled is false
+    if (!item.handled) {
+      row.classList.add("unhandled");
+    }
+
     // Format each cell based on column configuration
     row.innerHTML = tableConfig.columns
       .map(column => {
@@ -64,12 +73,16 @@ function renderTable() {
         } else if (column.key === "Type_of_Declaration") {
           cellContent = `<span class="status-badge ${item[column.key]}">${item[column.key]}</span>`;
         }
-
         return `<td>${cellContent}</td>`;
       })
       .join("");
 
     tableBody.appendChild(row);
+
+    // When clicking a row, show declaration details by passing item.ID
+    row.addEventListener("click", () => {
+      showDeclarationDetails(item.ID);
+    });
   });
 
   // Update pagination
@@ -186,7 +199,7 @@ function sortData(columnKey) {
       header.classList.add(currentSort.direction);
     }
   });
-
+ 
   // Reset to first page and re-render
   currentPage = 1;
   renderTable();
@@ -345,6 +358,107 @@ function setupEventListeners() {
   refreshTableBtn.addEventListener("click", () => {
     initTable();
   });
+}
+
+// Show declaration details in a modal
+async function showDeclarationDetails(id) {
+  try {
+    const response = await fetch(`/api/declarations/${id}`);
+
+    if (!response.status == 200)
+      throw new Error("Failed to fetch declaration details");
+
+    const declaration = await response.json();
+
+    // Create modal content with the new handled check logic
+    const detailHTML = `
+          <div class="detail-header">
+              <h2>Declaration ${declaration.ID}</h2>
+              <button class="detail-close" onclick="closeDetailModal()">&times;</button>
+          </div>
+          
+          <div class="detail-content">
+              <div class="card-modal">
+                  <div class="card-title">Basic Information</div>
+                  <div class="card-content">
+                      <p><strong>File Creator:</strong> ${declaration.File_Creator}</p>
+                      <p><strong>Company:</strong> ${declaration.Company}</p>
+                      <p><strong>Type:</strong> ${declaration.Type_of_Declaration}</p>
+                      <p><strong>Date of Acceptance:</strong> ${new Date(declaration.Date_of_Acceptance).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}</p>
+                      <p><strong>Status:</strong> <span class="status-badge ${getStatusClass(declaration.Type_of_Declaration)}">${declaration.Type_of_Declaration}</span></p>
+                  </div>
+              </div>
+              
+              <div class="card-modal">
+                  <div class="card-title">Wrong Containers (${declaration.Associated_containers.length})</div>
+                  <div class="card-content container-list">
+                      ${declaration.Associated_containers.map(
+                        (container) =>
+                          `<div class="tag status-rejected">${container}</div>`
+                      ).join("")}
+                  </div>
+              </div>
+
+              <div class="card-modal">
+                  <div class="card-content">
+                      ${declaration.handled 
+                        ? `<p>This container handled by ${declaration.handler}</p>`
+                        : `<button class="button" onclick="handleContainer(${declaration.ID})">Handle Container</button>`
+                      }
+                  </div>
+              </div>
+          </div>
+          `;
+
+    let detailOverlay = document.getElementById("detail-overlay");
+
+    if (!detailOverlay) {
+      detailOverlay = document.createElement("div");
+      detailOverlay.id = "detail-overlay";
+      detailOverlay.className = "detail-overlay";
+
+      const detailPanel = document.createElement("div");
+      detailPanel.className = "detail-panel";
+      detailOverlay.appendChild(detailPanel);
+
+      document.body.appendChild(detailOverlay);
+    }
+
+    const detailPanel = detailOverlay.querySelector(".detail-panel");
+    detailPanel.innerHTML = detailHTML;
+
+    // Show modal with animation
+    setTimeout(() => {
+      detailOverlay.classList.add("active");
+    }, 10);
+  } catch (error) {
+    console.error("Error fetching declaration details:", error);
+    alert("Failed to load declaration details. Please try again.");
+  }
+}
+
+function closeDetailModal(){
+  const detailOverlay = document.getElementById("detail-overlay");
+  if(detailOverlay) {
+    detailOverlay.classList.remove("active");
+    setTimeout(() => {
+      detailOverlay.remove();
+    }, 300);
+  }
+}
+
+function getStatusClass(type) {
+  // Convert type to a CSS class-friendly string
+  return type.toLowerCase().replace(/\s/g, '-');
+}
+
+function handleContainer(declarationId) {
+  // TODO: Add logic for handling the container
+  alert("Handle container for declaration " + declarationId + " will be handled by " + user);
 }
 
 // Initialize table on page load

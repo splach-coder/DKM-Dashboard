@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarItems.forEach(item => {
           item.classList.remove('active');
         });
-        logoImg.src = 'mini-logo.png';
+        logoImg.src = '/images/mini-logo.png';
       }else{
-        logoImg.src = 'logo.png'; 
+        logoImg.src = '/images/logo.png'; 
       }
       
       updateTooltips();

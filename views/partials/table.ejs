@@ -67,7 +67,6 @@
   <div class="table-wrapper">
     <table id="dataTable">
       <thead>
-        <tr>
           <% columns.forEach(column => { %>
           <th
             data-sort="<%= column.key %>"
@@ -78,7 +77,6 @@
             <% } %>
           </th>
           <% }); %>
-        </tr>
       </thead>
       <tbody>
         <!-- Table data will be populated by JavaScript -->
@@ -106,6 +104,7 @@
 </div>
 
 <script>
+  const user = "<%= user.username %>";
   // Configuration
   const tableConfig = {
     apiUrl: "<%= apiUrl %>",

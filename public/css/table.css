@@ -1,6 +1,7 @@
 :root {
     --background-color: #ffffff;
     --header-background: #f9f9f9;
+    --hover-color: #ff690511;
 }
 
 .container {
@@ -139,13 +140,18 @@ th.sorted.asc::after {
 }
 
 td {
+    cursor: pointer;
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
 }
 
-tr:hover {
+tbody tr:hover {
     background-color: var(--hover-color);
+}
+
+tbody tr.unhandled {
+    background-color: #ff69059d;
 }
 
 .table-footer {
