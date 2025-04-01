@@ -18,23 +18,114 @@ const clearFiltersBtn = document.getElementById("clearFilters");
 const exportCsvBtn = document.getElementById("exportCsv");
 const refreshTableBtn = document.getElementById("refreshTable");
 
-// Initialize table
 async function initTable() {
+  // Clear existing data
+  tableBody.innerHTML = '';
+  tableData = [];
+  filteredData = [];
+  
+  // Add loader
+  const loaderContainer = document.createElement('tr');
+  loaderContainer.innerHTML = `
+    <td colspan="${tableConfig.columns.length}" style="text-align: center; padding: 40px;">
+      <div class="loader-container">
+        <span class="loader"></span>
+        <p class="loading-text">Loading data...</p>
+      </div>
+    </td>
+  `;
+  tableBody.appendChild(loaderContainer);
+  
+  // Add the loader styles if not already in the document
+  if (!document.getElementById('loader-styles')) {
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'loader-styles';
+    styleSheet.textContent = `
+      .loader { 
+        width: 48px; 
+        height: 48px; 
+        border: 5px solid #FFF; 
+        border-radius: 50%; 
+        display: inline-block; 
+        box-sizing: border-box; 
+        position: relative; 
+        animation: pulse 1s linear infinite; 
+        border-color: var(--primary-color);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      } 
+      .loader:after { 
+        content: ''; 
+        position: absolute; 
+        width: 48px; 
+        height: 48px; 
+        border: 5px solid #FFF; 
+        border-radius: 50%; 
+        display: inline-block; 
+        box-sizing: border-box; 
+        left: 50%; 
+        top: 50%; 
+        transform: translate(-50%, -50%); 
+        animation: scaleUp 1s linear infinite; 
+        border-color: var(--primary-color);
+      } 
+      @keyframes scaleUp { 
+        0% { transform: translate(-50%, -50%) scale(0) } 
+        60%, 100% { transform: translate(-50%, -50%) scale(1)} 
+      } 
+      @keyframes pulse { 
+        0%, 60%, 100%{ transform: scale(1) } 
+        80% { transform: scale(1.2)} 
+      }
+      .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading-text {
+        margin-top: 20px;
+        color: #555;
+        font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    `;
+    document.head.appendChild(styleSheet);
+  }
+
   try {
     const response = await fetch(tableConfig.apiUrl);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
+    
     tableData = await response.json();
 
     // Sort data by Date_of_Acceptance from newest to oldest
     tableData.sort((a, b) => new Date(b.Date_of_Acceptance) - new Date(a.Date_of_Acceptance));
 
     filteredData = [...tableData];
+    
+    // Remove loader
+    tableBody.removeChild(loaderContainer);
+    
+    // Render table and setup event listeners
     renderTable();
     setupEventListeners();
   } catch (error) {
     console.error("Error loading table data:", error);
+    
+    // Remove loader
+    tableBody.removeChild(loaderContainer);
+    
+    // Show error message
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="${tableConfig.columns.length}" style="text-align: center; padding: 20px;">
+          Failed to load data. Please try again.
+        </td>
+      </tr>
+    `;
   }
 }
 
@@ -223,20 +314,21 @@ function applyFilters() {
       Object.values(item).some(val =>
         String(val).toLowerCase().includes(searchTerm)
       );
+      console.log(item)
 
     // Status dropdown filter
-    const matchesStatus = statusValue === "" || item.status === statusValue;
+    const matchesStatus = statusValue === "" || item.Type_of_Declaration === statusValue;
 
     // Name filter from advanced panel
-    const matchesName =
-      nameFilter === "" || item.name.toLowerCase().includes(nameFilter);
+    const matchesName = 
+      nameFilter === "" || item.Company.toLowerCase().includes(nameFilter);
 
     // Status filter from advanced panel
     const matchesStatusPanel =
-      statusPanelFilter === "" || item.status === statusPanelFilter;
+      statusPanelFilter === "" || item.Type_of_Declaration === statusPanelFilter;
 
     // Date filter from advanced panel
-    const matchesDate = dateFilter === "" || item.date === dateFilter;
+    const matchesDate = dateFilter === "" || new Date(item.Date_of_Acceptance).toISOString().split("T")[0] === dateFilter;
 
     // Archived filter (for demonstration - assumes items with status 'inactive' are archived)
     const matchesArchived = showArchivedValue || item.status !== "inactive";
@@ -404,11 +496,11 @@ async function showDeclarationDetails(id) {
               </div>
 
               <div class="card-modal">
-                  <div class="card-content">
+                  <div class="card-content buttons">
                       ${declaration.handled 
                         ? `<p>This container handled by ${declaration.handler}</p>`
                         : `<button class="button" onclick="handleContainer(${declaration.ID})">Handle Container</button>`
-                      }
+                      } 
                   </div>
               </div>
           </div>
@@ -456,9 +548,33 @@ function getStatusClass(type) {
   return type.toLowerCase().replace(/\s/g, '-');
 }
 
-function handleContainer(declarationId) {
-  // TODO: Add logic for handling the container
-  alert("Handle container for declaration " + declarationId + " will be handled by " + user);
+async function handleContainer(declarationId) {
+  try {
+    const response = await fetch("/api/declaration", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ID: declarationId,
+        handler: user
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Refresh the table to show updated data
+      initTable();
+      // Close the modal
+      closeDetailModal();
+    } else {
+      alert(`Error: ${data.error}`);
+    }
+  } catch (error) {
+    console.error("Error handling container:", error);
+    alert("Failed to handle the declaration.");
+  }
 }
 
 // Initialize table on page load

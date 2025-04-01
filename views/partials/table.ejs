@@ -18,16 +18,15 @@
     <div class="filter-options">
       <div class="filter-option">
         <label for="filterName">Name</label>
-        <input type="text" id="filterName" placeholder="Filter by name" />
+        <input type="text" id="filterName" placeholder="Filter by Company" />
       </div>
       <div class="filter-option">
         <label for="filterStatus">Status</label>
         <div class="select-wrapper">
           <select id="filterStatus">
             <option value="">All Statuses</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="pending">Pending</option>
+            <option value="EDMS_EXPORT">EDMS_EXPORT</option>
+            <option value="IDMS_IMPORT">IDMS_IMPORT</option>
           </select>
         </div>
       </div>
@@ -49,16 +48,15 @@
       <div class="select-wrapper">
         <select id="statusFilter">
           <option value="">All</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-          <option value="pending">Pending</option>
+          <option value="EDMS_EXPORT">EDMS_EXPORT</option>
+          <option value="IDMS_IMPORT">IDMS_IMPORT</option>
         </select>
       </div>
     </div>
-    <div class="filter-item">
+    <div class="filter-item" style="display: none;">
       <div class="checkbox-container">
         <input type="checkbox" id="showArchived" />
-        <label for="showArchived">Show archived</label>
+        <label for="showArchived">Show unhandled</label>
       </div>
     </div>
   </div>

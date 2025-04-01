@@ -74,6 +74,10 @@
     color: #555;
 }
 
+.card-content.buttons{
+    align-items: flex-end;
+}
+
 .tag {
     display: inline-block;
     padding: 4px 8px;

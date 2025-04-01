@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const { requireAuth } = require("../middlewares/auth");
-const { fetchUserData } = require("../utils/fetchData");
+const { fetchUserData, updateRecord } = require("../utils/fetchData");
 const { normalizeKeys } = require("../utils/functions");
 const pdfParse = require("pdf-parse");
 const xlsx = require("xlsx");
@@ -242,6 +242,25 @@ router.get("/containers/:id", requireAuth, (req, res) => {
   };
 
   res.json(container);
+});
+
+// update a declarations
+router.post("/declaration", requireAuth, async (req, res) => {
+  try {
+    const { ID, handler } = req.body;
+
+    if (!ID || !handler) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    response = await updateRecord(ID, handler);
+    console.log(response)
+
+    res.status(200).json({ message: "Declaration updated successfully", ID, handler });
+  } catch (error) {
+    console.error("Error updating declaration:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 module.exports = router;
