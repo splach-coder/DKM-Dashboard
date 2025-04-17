@@ -15,7 +15,7 @@
                 <div class="page-content">
                     <div class="content-header">
                         <h2>Container checker</h2>
-                        <p>Check the container number if it's correct .</p>
+                        <p>Check if a container number is valid.</p>
                     </div>
                     <div class="content-placeholder container-checker">
                         <div class="form-group">
@@ -24,15 +24,19 @@
                               type="text"
                               id="container-id"
                               class="form-input"
-                              placeholder="Enter container ID (e.g., CONT-1234)"
+                              placeholder="Enter container ID (e.g., ABCD1234567)"
+                              maxlength="11"
+                              pattern="[A-Z]{4}\d{7}"
                             />
+                            <small class="form-hint">Format: 4 letters followed by 7 numbers</small>
                         </div>
                         <button id="verify-button" class="btn btn-primary">
+                            <i data-feather="check-circle"></i>
                             Verify Container
                         </button>
                     </div>
+                    <div id="container-result" class="result-container"></div>
                 </div>
-                <div id="container-result" style="display: none"></div>
             </div>  
         </main>
     </div>

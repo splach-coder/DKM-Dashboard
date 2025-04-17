@@ -1,0 +1,92 @@
+<div class="main-view">
+    <!-- Header with filters -->
+    <div class="filter-container">
+      <div class="filter-group">
+        <div class="filter-item">
+          <label for="status-filter">Status:</label>
+          <select id="status-filter" class="filter-select">
+            <option value="all">All</option>
+            <option value="succeeded">Succeeded</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label for="time-filter">Time Range:</label>
+          <select id="time-filter" class="filter-select">
+            <option value="24h">Last 24 hours</option>
+            <option value="48h">Last 48 hours</option>
+            <option value="7d">Last 7 days</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+        <div class="filter-item date-range-container" id="custom-date-container">
+          <div class="date-input-group">
+            <label for="start-date">From:</label>
+            <input type="date" id="start-date" class="date-input">
+          </div>
+          <div class="date-input-group">
+            <label for="end-date">To:</label>
+            <input type="date" id="end-date" class="date-input">
+          </div>
+        </div>
+      </div>
+      <div class="filter-controls">
+        <div class="auto-refresh-container">
+          <input type="checkbox" id="auto-refresh" checked>
+          <label for="auto-refresh">Auto-refresh (10 min)</label>
+        </div>
+        <button id="refresh-button" class="refresh-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          Refresh
+        </button>
+        <button id="open-editor-modal" class="report-button">
+          <svg fill="#ffffff" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M434.063,426.667h-23.325V400c0-4.717-3.817-8.533-8.533-8.533s-8.533,3.817-8.533,8.533v26.667h-27.875 c-4.717,0-8.533,3.817-8.533,8.533s3.817,8.533,8.533,8.533h27.875v24.533c0,4.717,3.817,8.533,8.533,8.533 s8.533-3.817,8.533-8.533v-24.533h23.325c4.717,0,8.533-3.817,8.533-8.533S438.779,426.667,434.063,426.667z"></path> </g> </g> <g> <g> <path d="M399.929,357.333c-42.35,0-76.8,34.45-76.8,76.8c0,42.35,34.45,76.8,76.8,76.8c42.35,0,76.8-34.45,76.8-76.8 C476.729,391.783,442.279,357.333,399.929,357.333z M399.929,493.867c-32.933,0-59.733-26.8-59.733-59.733 s26.8-59.733,59.733-59.733c32.933,0,59.733,26.8,59.733,59.733S432.862,493.867,399.929,493.867z"></path> </g> </g> <g> <g> <path d="M403.229,0H61.979C47.837,0,35.271,10.4,35.271,24.5v460.867c0,14.1,12.542,26.633,26.65,26.633h257.158 c4.717,0,8.533-3.817,8.533-8.533s-3.817-8.533-8.533-8.533H61.921c-4.7,0-9.583-4.883-9.583-9.567V24.5 c0-4.683,4.917-7.433,9.642-7.433h341.25c4.65,0,7.508,2.808,7.508,7.4V323.2c0,4.717,3.817,8.533,8.533,8.533 c4.717,0,8.533-3.817,8.533-8.533V24.467C427.804,10.392,417.371,0,403.229,0z"></path> </g> </g> <g> <g> <path d="M275.271,59.733h-85.333c-4.717,0-8.533,3.817-8.533,8.533c0,4.717,3.817,8.533,8.533,8.533h85.333 c4.717,0,8.533-3.817,8.533-8.533C283.804,63.55,279.987,59.733,275.271,59.733z"></path> </g> </g> <g> <g> <path d="M352.071,119.467H113.138c-4.717,0-8.533,3.817-8.533,8.533c0,4.717,3.817,8.533,8.533,8.533h238.933 c4.717,0,8.533-3.817,8.533-8.533C360.604,123.283,356.787,119.467,352.071,119.467z"></path> </g> </g> <g> <g> <path d="M352.071,179.2H113.138c-4.717,0-8.533,3.817-8.533,8.533c0,4.717,3.817,8.533,8.533,8.533h238.933 c4.717,0,8.533-3.817,8.533-8.533C360.604,183.017,356.787,179.2,352.071,179.2z"></path> </g> </g> <g> <g> <path d="M352.071,238.933H113.138c-4.717,0-8.533,3.817-8.533,8.533c0,4.717,3.817,8.533,8.533,8.533h238.933 c4.717,0,8.533-3.817,8.533-8.533C360.604,242.75,356.787,238.933,352.071,238.933z"></path> </g> </g> <g> <g> <path d="M352.071,298.667H113.138c-4.717,0-9.6,2.75-9.6,7.467v128c0,4.717,4.883,9.6,9.6,9.6h187.733 c4.717,0,8.533-3.817,8.533-8.533s-3.817-8.533-8.533-8.533H120.604V315.733h221.867v24.533c0,4.717,3.817,8.533,8.533,8.533 c4.717,0,8.533-3.817,8.533-8.533v-34.133C359.538,301.417,356.787,298.667,352.071,298.667z"></path> </g> </g> </g></svg>
+          Report
+        </button>
+      </div>
+    </div>
+  
+    <!-- No company selected state -->
+    <div id="no-company-selected" class="no-company-message">
+      <p>Select a company from the sidebar to view run history</p>
+    </div>
+  
+    <!-- Loading state -->
+    <div id="loading-container" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading run history...</p>
+    </div>
+  
+    <!-- Results container -->
+    <div id="results-container" class="results-container">
+      <div class="table-container">
+        <table id="runs-table" class="runs-table">
+          <thead>
+            <tr>
+              <th>Identifier</th>
+              <th>Status</th>
+              <th>Start time (Local Time)</th>
+              <th>Duration</th>
+              <th>Static Results</th>
+            </tr>
+          </thead>
+          <tbody id="runs-table-body">
+            <!-- Rows will be populated via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination-container">
+        <span id="showing-count">Showing 0 runs</span>
+        <button id="see-more-button" class="see-more-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+          See more
+        </button>
+      </div>
+    </div>
+</div>

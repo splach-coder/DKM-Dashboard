@@ -15,7 +15,15 @@ router.get("/", requireAuth, (req, res) => {
 });
 
 router.get("/azure", requireAuth, (req, res) => {
-  res.render("dashboard", {
+  res.render("uploads", {
+    title: "Azure Tools",
+    activePage: "azure",
+    user: req.user
+  });
+});
+
+router.get("/reports", requireAuth, (req, res) => {
+  res.render("reports", {
     title: "Azure Tools",
     activePage: "azure",
     user: req.user

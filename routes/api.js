@@ -3,10 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 const { requireAuth } = require("../middlewares/auth");
 const { fetchUserData, updateRecord } = require("../utils/fetchData");
+const { fetchUploads, sendReportToAzure } = require("../utils/uploadsData");
 const { normalizeKeys } = require("../utils/functions");
 const pdfParse = require("pdf-parse");
 const xlsx = require("xlsx");
-const { Readable } = require('stream');
+const { Readable } = require("stream");
 const csvParser = require("csv-parser");
 const assistants = require("../data/assistants");
 const { validateContainerNumber } = require("../utils/functions");
@@ -35,22 +36,33 @@ async function processFile(file) {
         .on("data", (row) => results.push(row))
         .on("end", () =>
           resolve(
-            `📊 CSV File: ${originalname}\nContent:\n${JSON.stringify(results, null, 2)}`
+            `📊 CSV File: ${originalname}\nContent:\n${JSON.stringify(
+              results,
+              null,
+              2
+            )}`
           )
         )
         .on("error", reject);
     });
-  } else if (mimetype === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+  } else if (
+    mimetype ===
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  ) {
     const workbook = xlsx.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
-    return `📊 Excel File: ${originalname}\nContent:\n${JSON.stringify(sheetData, null, 2)}`;
+    return `📊 Excel File: ${originalname}\nContent:\n${JSON.stringify(
+      sheetData,
+      null,
+      2
+    )}`;
   } else if (mimetype.startsWith("image/")) {
     // Convert image to Base64 format for GPT-4o
     const base64Image = buffer.toString("base64");
     return {
       type: "input_image", // Correct OpenAI format for images
-      image_url: `data:${mimetype};base64,${base64Image}`
+      image_url: `data:${mimetype};base64,${base64Image}`,
     };
   } else {
     return `⚠️ Unsupported File Type: ${originalname}`;
@@ -63,11 +75,13 @@ router.post("/chat", upload.any(), async (req, res) => {
     let { message, assistantId } = req.body;
 
     if (!message) return res.status(400).json({ error: "Message is required" });
-    if (!assistantId) return res.status(400).json({ error: "Assistant ID is required" });
+    if (!assistantId)
+      return res.status(400).json({ error: "Assistant ID is required" });
 
     // Find assistant
     const assistant = assistants.find((a) => a.id === assistantId);
-    if (!assistant) return res.status(404).json({ error: "Assistant not found" });
+    if (!assistant)
+      return res.status(404).json({ error: "Assistant not found" });
 
     // 📂 Process uploaded files
     let fileContents = [];
@@ -98,7 +112,7 @@ router.post("/chat", upload.any(), async (req, res) => {
     if (fileContents.length > 0) {
       inputValue[0].content.push({
         type: "input_text",
-        text: `\n\nAttached Files:\n${fileContents.join("\n\n")}`
+        text: `\n\nAttached Files:\n${fileContents.join("\n\n")}`,
       });
     }
 
@@ -136,7 +150,8 @@ router.post("/chat", upload.any(), async (req, res) => {
     return res.status(500).json({
       success: false,
       error: "Error processing your request",
-      details: process.env.NODE_ENV === "development" ? error.message : undefined,
+      details:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 });
@@ -254,11 +269,49 @@ router.post("/declaration", requireAuth, async (req, res) => {
     }
 
     response = await updateRecord(ID, handler);
-    console.log(response)
+    console.log(response);
 
-    res.status(200).json({ message: "Declaration updated successfully", ID, handler });
+    res
+      .status(200)
+      .json({ message: "Declaration updated successfully", ID, handler });
   } catch (error) {
     console.error("Error updating declaration:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Get all Company runs
+router.get("/runs/:companyname", requireAuth, async (req, res) => {
+  try {
+    const CompanyName = req.params.companyname;
+
+    if (!CompanyName) {
+      return res.status(400).json({ error: "Missing required fields1" });
+    }
+
+    const response = await fetchUploads(CompanyName);
+    res
+      .status(200)
+      .json({ message: "Company runs fetched successfully", runs: response });
+  } catch (error) {
+    console.error("Error updating declaration:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// update a declarations
+router.post("/report", requireAuth, upload.array("files"), async (req, res) => {
+  try {
+    console.log("📩 Incoming report");
+
+    const form = req.body;
+    const files = req.files;
+
+    const result = await sendReportToAzure(form, files);
+
+    res.status(200).json({ message: "✅ Report sent successfully", result });
+  } catch (error) {
+    console.error("Error sending report:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

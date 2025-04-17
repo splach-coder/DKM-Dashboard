@@ -15,20 +15,19 @@
           </a>
         </li>
         
-        <!-- 
+         
         <li class="sidebar-item has-submenu <%= activePage === 'azure' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="Azure">
             <i class="fab fa-microsoft"></i>
-            <span class="sidebar-text">Azure</span>
+            <span class="sidebar-text">Uploads</span>
             <i class="fas fa-chevron-right arrow"></i>
           </a>
           <ul class="submenu">
-            <li><a href="/azure">Azure Overview</a></li>
-            <li><a href="/azure/services">Services</a></li>
-            <li><a href="/azure/resources">Resources</a></li>
+            <li><a href="/azure">Overview</a></li>
+            <li><a href="/reports">Reports</a></li>
           </ul>
         </li>
-        -->
+        
         
         <li class="sidebar-item has-submenu <%= activePage === 'ai-chatbots' ? 'active' : '' %>">
           <a href="#" class="sidebar-link" data-tooltip="AI Chatbots">
@@ -78,7 +77,7 @@
         </div>
         <div class="user-info">
           <span class="user-name"><%= user.username %></span>
-          <span class="user-role">user</span>
+          <span class="user-role"><%= user.username %></span>
         </div>
       </div>
       <div class="sidebar-toggle" id="sidebar-toggle">

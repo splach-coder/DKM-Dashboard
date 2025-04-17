@@ -4,6 +4,7 @@
 :root {
     --primary-color: #E54C37;
     --primary-hover: #D13C28;
+    --primary-lighr-hover: #ff690511;
     --secondary-color: #333333;
     --text-color: #333333;
     --text-light: #6c757d;
@@ -22,7 +23,7 @@
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
     --white: #FFFFFF;
-  }
+}
   
   * {
     margin: 0;

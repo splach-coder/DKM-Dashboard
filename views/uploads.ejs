@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+    <link rel="stylesheet" href="/css/uploads/sidebar.css" />
+    <link rel="stylesheet" href="/css/uploads/main.css" />
+    <link rel="stylesheet" href="/css/uploads/modal.css" />
+    <link rel="stylesheet" href="/css/uploads/editor.css" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.0/dist/panzoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
+    
+
+    <style>
+      /* Dashboard layout styles */
+      .uploads-dashboard-container {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .uploads-sidebar-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        border-right: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+        flex-shrink: 0;
+      }
+
+      .uploads-main-content-wrapper {
+        flex: 1;
+        height: 100%;
+        overflow-y: auto;
+        background-color: #ffffff;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .uploads-dashboard-container {
+          flex-direction: column;
+        }
+
+        .uploads-sidebar-wrapper {
+          width: 100%;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid #e0e0e0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <%- include('partials/sidebar') %>
+
+      <main class="main-content">
+        <%- include('partials/header') %>
+
+        <div class="uploads-dashboard-container">
+          <div class="uploads-sidebar-wrapper">
+            <%- include('partials/uploads/sidebar') %>
+          </div>
+          <div class="uploads-main-content-wrapper">
+            <%- include('partials/uploads/main') %>
+          </div>
+        </div>
+      </main>
+
+      <%- include('partials/uploads/modal') %> 
+      <%- include('partials/uploads/editor') %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.3/dist/panzoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.7/leader-line.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <%- include('partials/footer') %>
+    <script src="/js/uploads/sidebar.js"></script>
+    <script src="/js/uploads/main.js"></script>
+    <script src="/js/uploads/modal.js"></script>
+    <script src="/js/uploads/editor.js"></script>
+
+  </body>
+</html>

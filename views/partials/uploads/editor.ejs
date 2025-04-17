@@ -1,0 +1,90 @@
+<!-- Modal -->
+<div id="editorModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>New Issue Report</h2>
+      <span class="close">&times;</span>
+    </div>
+
+    <div class="modal-body">
+      <form id="reportForm" enctype="multipart/form-data">
+        <!-- Reporter Info -->
+        <div class="form-group">
+          <label> Reporter: <span><%= user.username %></span> </label>
+          <input type="hidden" id="reporter" name="reporter" value="<%= user.username %>" />
+          <input type="hidden" id="email" name="email" value="<%= user.email %>" />
+        </div>
+
+        <div class="form-layout">
+          <!-- Left Column: Issue Description -->
+          <div class="left-column">
+            <div class="form-group">
+              <div class="form-header">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                  ></path>
+                </svg>
+                <label>Issue Description</label>
+              </div>
+              <div class="quill-wrapper">
+                <div id="editor-container"></div>
+                <input type="hidden" name="issue" id="issue" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: File Upload -->
+          <div class="right-column">
+            <div class="upload-section">
+              <div class="form-header">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <label>Upload Files</label>
+              </div>
+              <div id="dropzone" class="upload-area">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+                <p>Drag & drop or click to choose files</p>
+                <p class="note">Supported: Images, PDFs, Excel, Word</p>
+                <p class="note">Max file size: 10 MB</p>
+                <input
+                  type="file"
+                  id="fileInput"
+                  multiple
+                  accept=".pdf,.doc,.docx,.xlsx,.png,.jpg,.jpeg,.gif"
+                  style="display: none"
+                />
+              </div>
+
+              <div class="file-list-container">
+                <div class="file-preview-header">
+                  <h4>Files</h4>
+                </div>
+                <ul id="fileList" class="file-list">
+                  <!-- Files will be listed here -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-btn">Cancel</button>
+          <button type="submit" class="submit-btn">Submit Issue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

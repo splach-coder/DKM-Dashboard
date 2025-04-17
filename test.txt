@@ -1,0 +1,64 @@
+🧭 Sidebar (Company Selector)
+
+    * Search bar on top 🔍
+    * List of companies from a JSON file
+    * On-click → highlight & load that company’s runs into main view
+    * Show a field qs badge next to each company (export / import / transit)
+    * Option to "pin" companies you care about to top
+    * Cache company list on frontend to avoid hitting backend on every search
+
+📊 Main View (Logic Apps Style Table)
+
+    * Table like Azure Logic Apps run history (clone every piece of ui)
+    * Run ID, Status, Time, Duration
+    * Click row → show modal
+    * Auto-refresh toggle every 10 mins
+    * Table can be filtered by (status, Time interva (Last 24 hours, Last 48 hours..., custom))
+    * Load run data only when needed to keep things fast like (Showing 40 runs and See more)
+    * Add a “loading...” state for UX smoothness
+
+🧩 Modal Details (Per Run)
+
+    * Step visualizer (like a flowchart with arrows) (preferable to be same as logic apps that incredible)
+    * Email button to send the report with all details to the dev team and it's gonna be easy to handle
+
+⚙️ Tech thoughts
+
+    * Vanilla JS - EJS (wihout layout) - Vanilla CSS
+
+
+🖼️ UI Pages / Sections
+    1. Submit Report (Main View for Employees)
+
+        👤 Select company Sidebar
+
+        📝 Issues displayed as Filter bar for everyone 
+                📊 Filter bar:
+                    ** Company
+                    ** Flow
+                    ** Date
+                    ** Status (open / resolved / ignored)
+
+                📋 Table/List view:
+                    ** Status chip (color-coded)
+                    ** Short title (first 100 chars)
+                    ** Icons if has file 🧾
+                    ** “View details” button    
+
+        📝 Issue text field (Markdown editor (bold, lists, link, attach screenshots))
+        📎 Upload area (PDFs, Screenshots, Files)
+        📩 Button: “Submit Report” → ✨ success toast “Thanks, we’ll look into it! with ur help we're getting closer to full automation”
+
+3. Report Detail View
+    🗂️ All the info (company, flow, time, user, etc.)
+    🖊️ Full text (rendered if markdown)
+    📎 Attached files preview (PDF previewer or link to open)
+
+🧠 Only me and Luc i can do this:
+    Add a comment
+    Tag issue
+    Mark status (resolved / under review / rejected)
+
+💥 Bonus UI Elements
+🚨 Toast for "report sent"
+🔍 Search bar on top

@@ -1,0 +1,44 @@
+<div class="uploads-sidebar">
+    <div class="uploads-sidebar-header">
+        <h2 class="uploads-sidebar-title">Companies</h2>
+        <div class="search-container">
+            <input type="text" id="company-search" placeholder="Search companies..." aria-label="Search companies">
+            <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </span>
+        </div>
+    </div>
+    
+    <div class="company-list-container">
+        <!-- Pinned companies section -->
+        <div class="company-section pinned">
+            <h3 class="section-title">Pinned</h3>
+            <ul id="pinned-companies" class="company-list">
+                <!-- Pinned companies will be populated here -->
+                <li class="empty-message" id="empty-pins-message">No pinned companies</li>
+            </ul>
+        </div>
+        
+        <!-- All companies section -->
+        <div class="company-section">
+            <h3 class="section-title">All Companies</h3>
+            <ul id="all-companies" class="company-list">
+                <!-- Companies will be populated here -->
+                <li class="empty-message">Loading companies...</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- SVG Icons (hidden) -->
+    <div style="display: none;">
+        <svg id="icon-pin-filled" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+            <path d="M16,12V4h1V2H7v2h1v8l-2,2v2h5.2v6h1.6v-6H18v-2L16,12z" fill="currentColor"/>
+        </svg>
+        <svg id="icon-pin-outline" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+            <path d="M14,12V5h1V3H9v2h1v7l-2,2v2h4.2v6h1.6v-6H18v-2L14,12z M12,12.1V5h2v7.1l1.7,1.7v0.8h-5.4v-0.8L12,12.1z" fill="currentColor"/>
+        </svg>
+    </div>
+</div>

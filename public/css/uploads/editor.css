@@ -1,0 +1,354 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    position: relative;
+}
+
+.modal-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 20px 24px;
+}
+
+.close {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close:hover {
+    color: var(--text-primary);
+}
+
+.form-layout {
+    display: grid;
+    grid-template-columns: calc(70% - 12px) calc(30% - 12px);
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .form-layout {
+        grid-template-columns: 100%;
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-header {
+    margin-bottom: 16px;
+    display: flex;
+}
+
+.form-header svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    fill: var(--primary-color);
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.modal label span {
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
+.modal input,
+.modal .readonly-field {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.readonly-field {
+    background-color: var(--light-gray);
+}
+
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.upload-area {
+    border: 1px dashed var(--primary-color);
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(0, 120, 212, 0.05);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: all 0.2s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.upload-area:hover {
+    background-color: rgba(0, 120, 212, 0.1);
+    border-color: var(--secondary-color);
+}
+
+.upload-area svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    fill: var(--primary-color);
+}
+
+.upload-area p {
+    margin: 4px 0;
+}
+
+.note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.file-list-container {
+    margin-top: 16px;
+    background-color: var(--light-gray);
+    border-radius: 4px;
+    padding: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    background: #fff;
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    box-shadow: var(--shadow);
+}
+
+.file-item:last-child {
+    margin-bottom: 0;
+}
+
+.file-item .file-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+.file-size {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.file-remove {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-remove:hover {
+    color: var(--danger-color);
+    background-color: rgba(209, 52, 56, 0.1);
+}
+
+.file-remove svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.file-preview {
+    margin-top: 16px;
+}
+
+.file-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.file-preview-header h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.quill-wrapper {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.quill-wrapper .ql-toolbar {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: var(--light-gray);
+    border-color: var(--border-color);
+}
+
+.quill-wrapper .ql-container {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-color: var(--border-color);
+    height: 301px;
+}
+
+.submit-btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.5);
+}
+
+.cancel-btn {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background-color: var(--light-gray);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.open-modal-btn {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .form-layout {
+        display: block;
+    }
+
+    .upload-area {
+        min-height: 150px;
+    }
+}
