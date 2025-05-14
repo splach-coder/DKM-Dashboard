@@ -105,7 +105,7 @@
     flex: 1;
 }
 
-.company-name {
+.company-info .company-name {
     font-size: 14px;
     margin: 0;
 }

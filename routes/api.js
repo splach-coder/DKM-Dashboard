@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const { requireAuth } = require("../middlewares/auth");
 const { fetchUserData, updateRecord } = require("../utils/fetchData");
-const { fetchUploads, sendReportToAzure } = require("../utils/uploadsData");
+const { fetchUploads, sendReportToAzure, fetchReports } = require("../utils/uploadsData");
 const { normalizeKeys } = require("../utils/functions");
 const pdfParse = require("pdf-parse");
 const xlsx = require("xlsx");
@@ -295,23 +295,6 @@ router.get("/runs/:companyname", requireAuth, async (req, res) => {
       .json({ message: "Company runs fetched successfully", runs: response });
   } catch (error) {
     console.error("Error updating declaration:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// update a declarations
-router.post("/report", requireAuth, upload.array("files"), async (req, res) => {
-  try {
-    console.log("📩 Incoming report");
-
-    const form = req.body;
-    const files = req.files;
-
-    const result = await sendReportToAzure(form, files);
-
-    res.status(200).json({ message: "✅ Report sent successfully", result });
-  } catch (error) {
-    console.error("Error sending report:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

@@ -3,6 +3,47 @@
   <head>
     <%- include('partials/head') %>
     <link rel="stylesheet" href="/css/uploads/sidebar.css" />
+    <link rel="stylesheet" href="/css/reports/reportModal.css" />
+    <link rel="stylesheet" href="/css/reports/reports.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fluentui-system-icons/1.1.223/font/css/fabric-icons.min.css">
+    <style>
+      /* Dashboard layout styles */
+      .uploads-dashboard-container {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .uploads-sidebar-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        border-right: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+        flex-shrink: 0;
+      }
+
+      .uploads-main-content-wrapper {
+        flex: 1;
+        height: 100%;
+        overflow-y: auto;
+        background-color: #ffffff;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .uploads-dashboard-container {
+          flex-direction: column;
+        }
+
+        .uploads-sidebar-wrapper {
+          width: 100%;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid #e0e0e0;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -16,19 +57,17 @@
           <div class="uploads-sidebar-wrapper">
             <%- include('partials/uploads/sidebar') %>
           </div>
-          <div class="uploads-main-content-wrapper"></div>
+          <div class="uploads-main-content-wrapper">
+            <%- include('partials/reports/reports') %>
+          </div>
         </div>
       </main>
     </div>
 
     <%- include('partials/footer') %>
     <script src="/js/uploads/sidebar.js"></script>
-    <script>
-      document.addEventListener("companySelected", (event) => {
-        const selectedCompanyName = event.detail;
-        console.log(`Selected company: ${selectedCompanyName}`);
-        // Add your logic here to handle the selected company
-      });
-    </script>
+    <script src="/js/uploads/main.js"></script>
+    <script src="/js/reports/reports.js"></script>
+    <script src="/js/reports/reportsModal.js"></script>
   </body>
 </html>

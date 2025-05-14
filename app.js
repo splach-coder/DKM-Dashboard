@@ -11,6 +11,7 @@ dotenv.config();
 // Import routes
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
+const reportesApiRouter = require('./routes/uploads/reports');
 
 // Import middleware
 const  mockAuth  = require('./middlewares/mockAuth');
@@ -38,6 +39,7 @@ app.use(authMiddleware);
 // Routes
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+app.use('/api', reportesApiRouter);
 
 // Error handler
 app.use((err, req, res, next) => {

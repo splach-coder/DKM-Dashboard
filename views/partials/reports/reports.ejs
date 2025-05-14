@@ -1,0 +1,153 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+      Reports Dashboard -
+      <span class="company-name" id="currentCompany">Select a company</span>
+    </h1>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-title">
+        <span class="stat-icon">✅</span> Total Reports
+      </div>
+      <div class="stat-value" id="totalReports">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><span class="stat-icon">📂</span> Open</div>
+      <div class="stat-value" id="openReports">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><span class="stat-icon">⏳</span> Pending</div>
+      <div class="stat-value" id="pendingReports">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><span class="stat-icon">🛑</span> Closed</div>
+      <div class="stat-value" id="closedReports">0</div>
+    </div>
+  </div>
+
+  <div class="reports-section">
+    <div class="filter-tabs">
+      <div class="filter-tab active" data-filter="all">All Reports</div>
+      <div class="filter-tab" data-filter="open">Open</div>
+      <div class="filter-tab" data-filter="pending">Pending</div>
+      <div class="filter-tab" data-filter="closed">Closed</div>
+    </div>
+
+    <table class="reports-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Assigned To</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="reportsTableBody">
+        <tr>
+          <td colspan="6" class="loading">Select a company to view reports</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+    
+  <div class="detail-card" id="reportDetail">
+      <!-- Header with title and close button -->
+      <header class="detail-header">
+          <div class="header-left">
+              <h2 class="detail-title" id="detailTitle">Report Title</h2>
+              <div class="detail-status">
+                  <span class="status-indicator" id="statusIndicator"></span>
+                  <select class="status-dropdown" id="statusDropdown">
+                      <option value="open">Open</option>
+                      <option value="pending">In Progress</option>
+                      <option value="closed">Completed</option>
+                  </select>
+              </div>
+          </div>
+          <div class="header-actions">
+              <button class="action-button" id="closeDetail" title="Close">
+                  <i class="fas fa-times"></i>
+              </button>
+          </div>
+      </header>
+
+      <!-- Meta information -->
+      <div class="detail-meta">
+          <div class="meta-item">
+              <i class="far fa-calendar"></i>
+              <span id="detailDate">01/01/2025</span>
+          </div>
+          <div class="meta-item">
+              <i class="far fa-user"></i>
+              <span>Assigned to:</span>
+              <div class="assignment-container" id="detailAssigned">Me</div>
+          </div>
+          <div class="meta-item">
+              <i class="far fa-clock"></i>
+              <span>Last updated: </span>
+              <span id="lastUpdated">Today</span>
+          </div>
+      </div>
+
+      <!-- Main content area -->
+      <div class="detail-content">
+          <section class="detail-section">
+              <h3 class="section-title">Description</h3>
+              <div class="detail-description" id="detailDescription">
+                  Report description will appear here
+              </div>
+          </section>
+
+          <section class="detail-section">
+              <h3 class="section-title">Tags</h3>
+              <div class="detail-tags" id="detailTags"></div>
+          </section>
+
+          <section class="detail-section">
+              <h3 class="section-title">
+                  <span>Files</span>
+              </h3>
+              <div class="detail-files" id="detailFiles">
+                  <!-- Files will be populated by JavaScript -->
+              </div>
+          </section>
+
+          <section class="detail-section">
+              <h3 class="section-title">
+                  <span>Comments</span>
+                  <button class="add-button" id="addCommentButton" title="Add Comment">
+                      <i class="fas fa-plus"></i>
+                  </button>
+              </h3>
+              <div class="comments-section">
+                  <div id="commentsContainer">
+                      <div class="no-comments">No comments yet</div>
+                  </div>
+                  <div class="comment-input-container" id="commentInputContainer" style="display: none;">
+                      <textarea id="newCommentText" placeholder="Add your comment..."></textarea>
+                      <div class="comment-actions">
+                          <button class="cancel-button" id="cancelComment">Cancel</button>
+                          <button class="submit-button" id="submitComment">Submit</button>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
+
+      <!-- Footer with action buttons -->
+      <footer class="detail-footer">
+          <div class="mark-done">
+              <input type="checkbox" id="markDone" />
+              <label for="markDone">Mark as Done</label>
+          </div>
+          <div class="footer-actions">
+              <button class="secondary-button" id="cancelReport">Cancel</button>
+              <button class="primary-button" id="saveReport">Save Changes</button>
+          </div>
+      </footer>
+  </div>
+</div>
